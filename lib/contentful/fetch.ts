@@ -14,7 +14,11 @@ export async function contentfulFetch(query: string, preview = false) {
   });
 
   if (!res.ok) {
-    throw new Error('Error fetching data from Contentful');
+    // Extraemos el mensaje de error real que nos manda Contentful
+    const errorText = await res.text();
+    console.error("❌ Contentful Status:", res.status);
+    console.error("❌ Contentful Error:", errorText);
+    throw new Error(`Error de Contentful: ${res.status} - ${errorText}`);
   }
 
   return res.json();

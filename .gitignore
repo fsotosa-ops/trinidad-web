@@ -1,1 +1,59 @@
 node_modules/
+# =========================================
+# Dependencias de Node
+# =========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================================
+# Next.js / Build output
+# =========================================
+.next/
+out/
+build/
+
+# =========================================
+# Variables de entorno y Secretos (¡CRÍTICO!)
+# =========================================
+# Nunca debes subir estos archivos, ya que contienen 
+# tus Access Tokens y Space IDs de Contentful.
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================================
+# Archivos de caché y logs
+# =========================================
+.pnp
+.pnp.js
+.pnp.cjs
+.tsbuildinfo
+*.log
+
+# =========================================
+# Plataformas de despliegue (ej. Vercel)
+# =========================================
+.vercel
+
+# =========================================
+# Archivos del sistema operativo y editores
+# =========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
