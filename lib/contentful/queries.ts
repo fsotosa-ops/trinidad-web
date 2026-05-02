@@ -1,46 +1,95 @@
-// lib/contentful/queries.ts
-export const FULL_TEST_QUERY = `
-  query {
-    # Sección 3 - Solución con Referencias a Founders
+export const HOMEPAGE_QUERY = /* GraphQL */ `
+  query Homepage {
+    sectionHeroCollection(limit: 1) {
+      items {
+        tituloEs
+        subtituloEs
+        ctaPrincipalEs
+        ctaSecundarioEs
+      }
+    }
+    sectionProblemCollection(limit: 1) {
+      items {
+        tituloH2Es
+        cuerpoEs {
+          json
+        }
+      }
+    }
+    sectionTargetCollection(limit: 1) {
+      items {
+        tituloH2Es
+        verticalesEs
+        encajaSiEs {
+          json
+        }
+        noEncajaSiEs {
+          json
+        }
+      }
+    }
     sectionSolutionCollection(limit: 1) {
       items {
         tituloH2Es
+        cuerpoEs {
+          json
+        }
         foundersCollection(limit: 3) {
           items {
             ... on Founder {
               nombre
               titulocanonico
+              aristaEs
+              descripcionEs
             }
           }
         }
       }
     }
-    # Sección 4 - Proceso con Referencias a Sprints
     sectionProcessCollection(limit: 1) {
       items {
         tituloH2Es
-        sprintsCollection(limit: 4) {
+        introEs
+        cierreEs {
+          json
+        }
+        sprintsCollection(limit: 6) {
           items {
             ... on Sprint {
               numero
               nombreEs
+              objetivoEs
               entregableEs
+              dias
             }
           }
         }
       }
     }
-    # Sección 6 - Precios con Referencias a Productos
     sectionPricingCollection(limit: 1) {
       items {
         tituloH2Es
-        productosCollection(limit: 2) {
+        ofertaIrresistibleEs {
+          json
+        }
+        productosCollection(limit: 5) {
           items {
             ... on Product {
               nombreEs
               precio
+              descripcionEs
+              hitosPagoEs
             }
           }
+        }
+      }
+    }
+    sectionClosingCollection(limit: 1) {
+      items {
+        tituloH2Es
+        ctaTextoEs
+        cuerpoEs {
+          json
         }
       }
     }
