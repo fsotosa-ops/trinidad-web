@@ -37,13 +37,20 @@ export interface Sprint {
   entregableEs: string;
   dias: string;
 }
+export interface FeatureCard {
+  categoria: string;
+  descripcion: string;
+}
 
 export interface SectionHero {
-  tituloEs: string;
+  etiquetaSuperiorEs: string;
+  tituloRichEs: RichText;
   subtituloEs: string;
   ctaPrincipalEs: string;
   ctaSecundarioEs: string;
-  pillaresCollection?: { items: Pillar[] } | null;
+  tarjetasLateralesCollection?: { 
+    items: { categoria: string; descripcion: string; }[] 
+  } | null;
 }
 
 export interface SectionProblem {

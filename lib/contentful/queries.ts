@@ -2,10 +2,19 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
   query Homepage {
     sectionHeroCollection(limit: 1) {
       items {
-        tituloEs
+        etiquetaSuperiorEs
+        tituloRichEs {
+        json
+        }
         subtituloEs
         ctaPrincipalEs
         ctaSecundarioEs
+        tarjetasLateralesCollection {
+        items {
+          categoria
+          descripcion
+          }
+        }
       }
     }
     sectionProblemCollection(limit: 1) {

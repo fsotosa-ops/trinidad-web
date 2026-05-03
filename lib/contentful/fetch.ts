@@ -17,7 +17,7 @@ export async function contentfulFetch(query: string, opts: FetchOpts = {}) {
       }`,
     },
     body: JSON.stringify({ query }),
-    next: { revalidate: 3600 },
+    next: { revalidate: 0 },
   });
 
   if (!res.ok) {
