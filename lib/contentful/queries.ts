@@ -29,6 +29,8 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
       items {
         tituloH2Es
         verticalesEs
+        tituloEncajaEs    
+        tituloNoEncajaEs
         encajaSiEs {
           json
         }

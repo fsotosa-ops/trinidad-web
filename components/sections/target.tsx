@@ -1,3 +1,4 @@
+// components/sections/target.tsx
 import { clsx } from 'clsx';
 import { BLOCKS, type Block, type Inline, type Text } from '@contentful/rich-text-types';
 import { Container } from '@/components/ui/container';
@@ -10,6 +11,8 @@ const LEADING_HEADING_TYPES = new Set<string>([
   BLOCKS.HEADING_2,
   BLOCKS.HEADING_3,
   BLOCKS.HEADING_4,
+  BLOCKS.HEADING_5,
+  BLOCKS.HEADING_6,
 ]);
 
 function extractText(node: Block | Inline | Text): string {
@@ -50,35 +53,34 @@ export function Target({ data }: { data: SectionTarget | null }) {
     <section
       id="encaja"
       aria-labelledby="encaja-heading"
-      className="border-t border-trinidad-line/60"
+      className="bg-trinidad-bg border-t border-trinidad-line/60"
     >
       <Container as="div" className="py-24 md:py-32">
         <div className="max-w-3xl">
           <Eyebrow>¿Encaja con tu empresa?</Eyebrow>
           <h2
             id="encaja-heading"
-            className="mt-6 font-display font-medium leading-tight tracking-[-0.02em] text-trinidad-black text-[clamp(2rem,4vw,3.25rem)]"
+            className="mt-6 font-display font-medium leading-[1.1] tracking-[-0.02em] text-trinidad-black text-[clamp(2.25rem,5vw,3.75rem)]"
           >
             {data.tituloH2Es}
           </h2>
         </div>
 
-        <div className="mt-16 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-8">
+        <div className="mt-20 grid gap-12 md:mt-24 md:grid-cols-2 md:gap-16 lg:gap-24">
           <FilterCard tone="match" document={data.encajaSiEs} />
           <FilterCard tone="miss" document={data.noEncajaSiEs} />
         </div>
 
         {verticales.length > 0 && (
-          <div className="mt-20 border-t border-trinidad-line/70 pt-10 md:mt-24">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-trinidad-gray">
+          <div className="mt-24 border-t border-trinidad-line/70 pt-12 md:mt-32">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-trinidad-gray">
               Verticales en las que trabajamos
             </p>
-            <ul className="mt-6 flex flex-wrap gap-2">
+            <ul className="mt-8 flex flex-wrap gap-3">
               {verticales.map((v) => (
                 <li
                   key={v}
-                  tabIndex={0}
-                  className="border border-trinidad-line/80 px-4 py-1.5 text-sm text-trinidad-black/85 transition hover:border-trinidad-terracota hover:text-trinidad-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
+                  className="border border-trinidad-line/80 px-5 py-2 text-[13px] uppercase tracking-wider text-trinidad-black/80 transition-colors hover:border-trinidad-terracota hover:text-trinidad-terracota"
                 >
                   {v}
                 </li>
@@ -102,43 +104,58 @@ function FilterCard({
   const isMatch = tone === 'match';
 
   return (
-    <article
-      className={clsx(
-        'p-8 md:p-12',
-        isMatch
-          ? 'bg-trinidad-black text-trinidad-cream'
-          : 'bg-trinidad-line [&_li]:before:bg-trinidad-gray [&_p]:text-trinidad-black/55 [&_strong]:text-trinidad-black/75 [&_h2]:text-trinidad-black/70 [&_h3]:text-trinidad-black/70',
-      )}
-    >
-      <header className="flex items-end gap-5 md:gap-6">
-        <span
-          aria-hidden
-          className={clsx(
-            'select-none font-medium leading-none text-6xl md:text-7xl',
-            isMatch ? 'text-trinidad-terracota' : 'text-trinidad-gray',
-          )}
-        >
-          {isMatch ? '+' : '—'}
-        </span>
-        {heading && (
-          <h3
-            className={clsx(
-              'font-display font-medium leading-tight text-xl md:text-2xl',
-              isMatch ? 'text-trinidad-cream' : 'text-trinidad-black/70',
-            )}
-          >
-            {heading}
-          </h3>
-        )}
-      </header>
-
+    <article className={clsx('flex flex-col h-full', !isMatch && 'md:pt-0')}>
       <div
         className={clsx(
-          'mt-8 border-t pt-8',
-          isMatch ? 'border-trinidad-cream/15' : 'border-trinidad-gray/20',
+          'flex flex-col p-8 md:p-12 h-full',
+          isMatch
+            ? 'bg-trinidad-black text-trinidad-cream shadow-2xl'
+            : 'bg-transparent p-0 md:p-0'
         )}
       >
-        <RichText document={body} tone={isMatch ? 'dark' : 'light'} />
+        <header className="flex flex-row items-center gap-4 md:gap-5">
+          <div
+            aria-hidden
+            className={clsx(
+              'flex items-center justify-center shrink-0 rounded-full w-10 h-10 md:w-12 md:h-12',
+              isMatch
+                ? 'bg-trinidad-terracota text-trinidad-cream'
+                : 'bg-trinidad-black/5 text-trinidad-black/40',
+            )}
+          >
+            {/* Aquí está el cambio principal: Reduje text-2xl/3xl a text-lg/xl */}
+            <span className="font-medium text-lg md:text-xl leading-none select-none relative top-[-1px]">
+              {isMatch ? '+' : '−'}
+            </span>
+          </div>
+          
+          {heading && (
+            <h3
+              className={clsx(
+                'font-semibold leading-snug text-lg md:text-xl tracking-tight',
+                isMatch ? 'text-trinidad-cream' : 'text-trinidad-black',
+              )}
+            >
+              {heading}
+            </h3>
+          )}
+        </header>
+
+        <div
+          className={clsx(
+            'mt-6 border-t pt-6 flex-1',
+            isMatch ? 'border-trinidad-cream/10' : 'border-trinidad-black/10',
+          )}
+        >
+          <RichText 
+            document={body} 
+            tone={isMatch ? 'dark' : 'light'} 
+            className={clsx(
+              'text-[17px] leading-relaxed',
+              !isMatch && '[&_p]:text-trinidad-black/60 [&_li]:text-trinidad-black/60'
+            )}
+          />
+        </div>
       </div>
     </article>
   );

@@ -51,6 +51,7 @@ export interface SectionHero {
   tarjetasLateralesCollection?: { 
     items: { categoria: string; descripcion: string; }[] 
   } | null;
+  pillaresCollection?: { items: Pillar[] } | null;
 }
 
 export interface SectionProblem {
@@ -61,6 +62,8 @@ export interface SectionProblem {
 export interface SectionTarget {
   tituloH2Es: string;
   verticalesEs: string;
+  tituloEncajaEs: string;   
+  tituloNoEncajaEs: string;
   encajaSiEs: RichText;
   noEncajaSiEs: RichText;
 }
