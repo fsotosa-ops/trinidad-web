@@ -9,13 +9,17 @@ export function Problem({ data }: { data: SectionProblem | null }) {
   return (
     <section
       id="problema"
+      aria-labelledby="problema-heading"
       className="border-t border-trinidad-line/60 bg-trinidad-black text-trinidad-cream"
     >
       <Container as="div" className="py-24 md:py-32">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Eyebrow className="text-trinidad-cream/60">El problema</Eyebrow>
-            <h2 className="mt-6 font-medium leading-tight text-3xl md:text-4xl">
+            <h2
+              id="problema-heading"
+              className="mt-6 font-display font-medium leading-tight tracking-[-0.02em] text-[clamp(2rem,4vw,3.25rem)]"
+            >
               {data.tituloH2Es}
             </h2>
           </div>

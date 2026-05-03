@@ -2,14 +2,15 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-trinidad-black: #1A1A1A;
-  --color-trinidad-cream: #F5F0EB;
-  --color-trinidad-terracota: #C4633A;
-  --color-trinidad-gray: #888780;
-  --color-trinidad-line: #E4DDD3;
+  --color-trinidad-black: #1A1A18;
+  --color-trinidad-cream: #F2EDE6;
+  --color-trinidad-terracota: #C4603A;
+  --color-trinidad-terra-dark: #A34E2E;
+  --color-trinidad-gray: #8A8478;
+  --color-trinidad-line: #D8D2C8;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --tracking-trinidad: 0.02em;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
 }
 
 html {
@@ -21,10 +22,46 @@ body {
   background: var(--color-trinidad-cream);
   color: var(--color-trinidad-black);
   font-family: var(--font-sans);
-  letter-spacing: var(--tracking-trinidad);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 ::selection {
   background: var(--color-trinidad-terracota);
   color: var(--color-trinidad-cream);
+}
+
+@keyframes trinidad-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: trinidad-fade-up 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+
+.fade-up-delay-1 { animation-delay: 0.1s; }
+.fade-up-delay-2 { animation-delay: 0.2s; }
+.fade-up-delay-3 { animation-delay: 0.3s; }
+.fade-up-delay-4 { animation-delay: 0.4s; }
+.fade-up-delay-5 { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-up-delay-1,
+  .fade-up-delay-2,
+  .fade-up-delay-3,
+  .fade-up-delay-4,
+  .fade-up-delay-5 {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }

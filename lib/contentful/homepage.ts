@@ -1,6 +1,8 @@
 import type {
+  ContentfulAsset,
   Founder,
   HomepageData,
+  Pillar,
   Product,
   SectionClosing,
   SectionHero,
@@ -12,7 +14,7 @@ import type {
   Sprint,
 } from '@/types/contentful';
 import { contentfulFetch } from './fetch';
-import { HOMEPAGE_QUERY } from './queries';
+import { HOMEPAGE_EXTENSIONS_QUERY, HOMEPAGE_QUERY } from './queries';
 
 interface RawCollection<T> {
   items: T[];
@@ -28,6 +30,15 @@ interface RawHomepage {
   sectionClosingCollection: RawCollection<SectionClosing>;
 }
 
+interface RawHomepageExtensions {
+  sectionHeroCollection: RawCollection<{
+    pillaresCollection?: { items: Pillar[] } | null;
+  }>;
+  sectionSolutionCollection: RawCollection<{
+    frameworkImage?: ContentfulAsset | null;
+  }>;
+}
+
 const ARISTA_ORDER: Record<string, number> = {
   CMO: 0,
   CPO: 1,
@@ -39,9 +50,24 @@ function aristaRank(titulo: string): number {
   return ARISTA_ORDER[key] ?? 99;
 }
 
+async function fetchExtensions(): Promise<RawHomepageExtensions | null> {
+  try {
+    // silent: 400s are expected here until Felipe creates the Pillar content
+    // type and the frameworkImage field on sectionSolution in Contentful.
+    const res = await contentfulFetch(HOMEPAGE_EXTENSIONS_QUERY, { silent: true });
+    return (res?.data as RawHomepageExtensions | undefined) ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getHomepage(): Promise<HomepageData> {
-  const res = await contentfulFetch(HOMEPAGE_QUERY);
-  const data = res?.data as RawHomepage | undefined;
+  const [coreRes, extensions] = await Promise.all([
+    contentfulFetch(HOMEPAGE_QUERY),
+    fetchExtensions(),
+  ]);
+
+  const data = coreRes?.data as RawHomepage | undefined;
 
   if (!data) {
     return {
@@ -55,11 +81,31 @@ export async function getHomepage(): Promise<HomepageData> {
     };
   }
 
+  const hero = data.sectionHeroCollection.items[0] ?? null;
+  if (hero) {
+    const pillares =
+      extensions?.sectionHeroCollection.items[0]?.pillaresCollection?.items ?? [];
+    if (pillares.length > 0) {
+      hero.pillaresCollection = {
+        items: [...pillares].sort(
+          (a: Pillar, b: Pillar) => (a.orden ?? 99) - (b.orden ?? 99),
+        ),
+      };
+    }
+  }
+
   const solution = data.sectionSolutionCollection.items[0] ?? null;
-  if (solution?.foundersCollection?.items) {
-    solution.foundersCollection.items = [...solution.foundersCollection.items].sort(
-      (a: Founder, b: Founder) => aristaRank(a.titulocanonico) - aristaRank(b.titulocanonico),
-    );
+  if (solution) {
+    if (solution.foundersCollection?.items) {
+      solution.foundersCollection.items = [...solution.foundersCollection.items].sort(
+        (a: Founder, b: Founder) => aristaRank(a.titulocanonico) - aristaRank(b.titulocanonico),
+      );
+    }
+    const framework =
+      extensions?.sectionSolutionCollection.items[0]?.frameworkImage ?? null;
+    if (framework?.url) {
+      solution.frameworkImage = framework;
+    }
   }
 
   const process = data.sectionProcessCollection.items[0] ?? null;
@@ -82,7 +128,7 @@ export async function getHomepage(): Promise<HomepageData> {
   }
 
   return {
-    hero: data.sectionHeroCollection.items[0] ?? null,
+    hero,
     problem: data.sectionProblemCollection.items[0] ?? null,
     target: data.sectionTargetCollection.items[0] ?? null,
     solution,

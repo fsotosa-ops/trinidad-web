@@ -1,4 +1,3 @@
-import { clsx } from 'clsx';
 import { Container } from '@/components/ui/container';
 import { Eyebrow } from '@/components/ui/eyebrow';
 import { RichText } from '@/components/ui/rich-text';
@@ -9,12 +8,19 @@ export function Process({ data }: { data: SectionProcess | null }) {
   const sprints = data.sprintsCollection?.items ?? [];
 
   return (
-    <section id="proceso" className="border-t border-trinidad-line/60">
+    <section
+      id="proceso"
+      aria-labelledby="proceso-heading"
+      className="border-t border-trinidad-line/60"
+    >
       <Container as="div" className="py-24 md:py-32">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Eyebrow>Cómo funciona</Eyebrow>
-            <h2 className="mt-6 font-medium leading-tight text-3xl text-trinidad-black md:text-5xl">
+            <h2
+              id="proceso-heading"
+              className="mt-6 font-display font-medium leading-tight tracking-[-0.02em] text-trinidad-black text-[clamp(2rem,4vw,3.25rem)]"
+            >
               {data.tituloH2Es}
             </h2>
           </div>
@@ -30,16 +36,13 @@ export function Process({ data }: { data: SectionProcess | null }) {
           )}
         </div>
 
-        <ol className="mt-20 md:mt-28">
-          {sprints.map((sprint, index) => (
-            <SprintRow
-              key={sprint.numero}
-              sprint={sprint}
-              total={sprints.length}
-              index={index}
-            />
-          ))}
-        </ol>
+        {sprints.length > 0 && (
+          <ol className="mt-20 grid gap-px bg-trinidad-line md:mt-28 md:grid-cols-4">
+            {sprints.map((sprint) => (
+              <SprintCard key={sprint.numero} sprint={sprint} />
+            ))}
+          </ol>
+        )}
 
         {data.cierreEs && (
           <div className="mt-20 max-w-3xl">
@@ -51,46 +54,34 @@ export function Process({ data }: { data: SectionProcess | null }) {
   );
 }
 
-function SprintRow({
-  sprint,
-  total,
-  index,
-}: {
-  sprint: Sprint;
-  total: number;
-  index: number;
-}) {
+function SprintCard({ sprint }: { sprint: Sprint }) {
   const number = String(sprint.numero).padStart(2, '0');
-  const totalLabel = String(total).padStart(2, '0');
 
   return (
-    <li
-      className={clsx(
-        index > 0 && 'mt-14 border-t border-trinidad-line/60 pt-14 md:mt-16 md:pt-16',
-      )}
-    >
-      <p className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-xs font-medium uppercase tracking-[0.22em] text-trinidad-gray">
-        <span className="text-trinidad-terracota tabular-nums">Sprint {number}</span>
-        <span>Días {sprint.dias}</span>
-        <span className="ml-auto text-trinidad-gray/70 tabular-nums">
-          {number} <span className="text-trinidad-line">/</span> {totalLabel}
+    <li className="flex flex-col gap-5 bg-trinidad-cream p-7 md:p-8">
+      <div className="flex items-baseline justify-between gap-4">
+        <span className="font-medium leading-none tracking-[-0.04em] text-trinidad-terracota tabular-nums text-5xl md:text-6xl">
+          {number}
         </span>
-      </p>
+        <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-trinidad-gray">
+          Días {sprint.dias}
+        </span>
+      </div>
 
-      <h3 className="mt-5 max-w-2xl font-medium leading-tight text-trinidad-black text-2xl md:text-4xl">
+      <h3 className="font-display font-medium leading-snug tracking-[-0.01em] text-trinidad-black text-xl md:text-2xl">
         {sprint.nombreEs}
       </h3>
 
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-trinidad-black/80 md:text-lg">
+      <p className="text-sm leading-relaxed text-trinidad-black/80">
         {sprint.objetivoEs}
       </p>
 
-      <p className="mt-5 max-w-2xl text-base">
-        <span className="text-xs font-medium uppercase tracking-[0.22em] text-trinidad-gray">
-          Entregable —
-        </span>{' '}
-        <span className="text-trinidad-black/90">{sprint.entregableEs}</span>
-      </p>
+      <div className="mt-auto border-t border-trinidad-line pt-4">
+        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-trinidad-gray">
+          Entregable
+        </p>
+        <p className="mt-2 text-sm text-trinidad-black/90">{sprint.entregableEs}</p>
+      </div>
     </li>
   );
 }

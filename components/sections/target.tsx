@@ -47,11 +47,18 @@ export function Target({ data }: { data: SectionTarget | null }) {
     .filter(Boolean);
 
   return (
-    <section id="encaja" className="border-t border-trinidad-line/60">
+    <section
+      id="encaja"
+      aria-labelledby="encaja-heading"
+      className="border-t border-trinidad-line/60"
+    >
       <Container as="div" className="py-24 md:py-32">
         <div className="max-w-3xl">
           <Eyebrow>¿Encaja con tu empresa?</Eyebrow>
-          <h2 className="mt-6 font-medium leading-tight text-3xl text-trinidad-black md:text-5xl">
+          <h2
+            id="encaja-heading"
+            className="mt-6 font-display font-medium leading-tight tracking-[-0.02em] text-trinidad-black text-[clamp(2rem,4vw,3.25rem)]"
+          >
             {data.tituloH2Es}
           </h2>
         </div>
@@ -70,7 +77,8 @@ export function Target({ data }: { data: SectionTarget | null }) {
               {verticales.map((v) => (
                 <li
                   key={v}
-                  className="border border-trinidad-line/80 px-4 py-1.5 text-sm text-trinidad-black/85 transition hover:border-trinidad-terracota hover:text-trinidad-black"
+                  tabIndex={0}
+                  className="border border-trinidad-line/80 px-4 py-1.5 text-sm text-trinidad-black/85 transition hover:border-trinidad-terracota hover:text-trinidad-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
                 >
                   {v}
                 </li>
@@ -115,7 +123,7 @@ function FilterCard({
         {heading && (
           <h3
             className={clsx(
-              'font-medium leading-tight text-xl md:text-2xl',
+              'font-display font-medium leading-tight text-xl md:text-2xl',
               isMatch ? 'text-trinidad-cream' : 'text-trinidad-black/70',
             )}
           >

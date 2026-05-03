@@ -2,6 +2,20 @@ import type { Document } from '@contentful/rich-text-types';
 
 export type RichText = { json: Document };
 
+export interface ContentfulAsset {
+  url: string;
+  width: number;
+  height: number;
+  title: string | null;
+  description: string | null;
+}
+
+export interface Pillar {
+  etiquetaEs: string;
+  descripcionEs: string;
+  orden: number;
+}
+
 export interface Founder {
   nombre: string;
   titulocanonico: string;
@@ -29,6 +43,7 @@ export interface SectionHero {
   subtituloEs: string;
   ctaPrincipalEs: string;
   ctaSecundarioEs: string;
+  pillaresCollection?: { items: Pillar[] } | null;
 }
 
 export interface SectionProblem {
@@ -46,6 +61,7 @@ export interface SectionTarget {
 export interface SectionSolution {
   tituloH2Es: string;
   cuerpoEs: RichText;
+  frameworkImage?: ContentfulAsset | null;
   foundersCollection: { items: Founder[] };
 }
 

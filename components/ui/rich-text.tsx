@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import type { RichText as RichTextType } from '@/types/contentful';
 
-type Tone = 'light' | 'dark';
+type Tone = 'light' | 'dark' | 'terra';
 
 const toneClasses: Record<Tone, { body: string; strong: string; link: string }> = {
   light: {
@@ -16,6 +16,11 @@ const toneClasses: Record<Tone, { body: string; strong: string; link: string }> 
     body: 'text-trinidad-cream/80',
     strong: 'text-trinidad-cream',
     link: 'text-trinidad-terracota',
+  },
+  terra: {
+    body: 'text-trinidad-cream/90',
+    strong: 'text-trinidad-cream',
+    link: 'text-trinidad-cream underline',
   },
 };
 
@@ -33,10 +38,10 @@ function buildOptions(tone: Tone): Options {
         <p className={clsx('text-base leading-relaxed md:text-[17px]', c.body)}>{children}</p>
       ),
       [BLOCKS.HEADING_2]: (_, children) => (
-        <h2 className={clsx('font-medium text-2xl md:text-3xl', c.strong)}>{children}</h2>
+        <h2 className={clsx('font-display font-medium text-2xl md:text-3xl', c.strong)}>{children}</h2>
       ),
       [BLOCKS.HEADING_3]: (_, children) => (
-        <h3 className={clsx('font-medium text-xl md:text-2xl', c.strong)}>{children}</h3>
+        <h3 className={clsx('font-display font-medium text-xl md:text-2xl', c.strong)}>{children}</h3>
       ),
       [BLOCKS.UL_LIST]: (_, children) => (
         <ul className={clsx('space-y-2', c.body)}>{children}</ul>
@@ -57,7 +62,10 @@ function buildOptions(tone: Tone): Options {
       [INLINES.HYPERLINK]: (node, children) => (
         <a
           href={node.data.uri}
-          className={clsx('underline-offset-4 hover:underline', c.link)}
+          className={clsx(
+            'underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota',
+            c.link,
+          )}
           target={node.data.uri?.startsWith('http') ? '_blank' : undefined}
           rel={node.data.uri?.startsWith('http') ? 'noopener noreferrer' : undefined}
         >
@@ -68,8 +76,11 @@ function buildOptions(tone: Tone): Options {
   };
 }
 
-const optionsLight = buildOptions('light');
-const optionsDark = buildOptions('dark');
+const optionsByTone: Record<Tone, Options> = {
+  light: buildOptions('light'),
+  dark: buildOptions('dark'),
+  terra: buildOptions('terra'),
+};
 
 export function RichText({
   document,
@@ -81,10 +92,9 @@ export function RichText({
   tone?: Tone;
 }) {
   if (!document?.json) return null;
-  const options = tone === 'dark' ? optionsDark : optionsLight;
   return (
     <div className={clsx('space-y-4', className)}>
-      {documentToReactComponents(document.json, options) as ReactNode}
+      {documentToReactComponents(document.json, optionsByTone[tone]) as ReactNode}
     </div>
   );
 }

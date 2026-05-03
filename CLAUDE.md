@@ -79,18 +79,18 @@ The shape returned to components is sorted in `getHomepage()`. **Do not re-sort 
 
 `src/app/globals.css` defines custom design tokens via `@theme {}`. Use the generated utility classes — **don't hardcode hex values in components**:
 
-| Token | Class examples | Hex |
-|---|---|---|
-| `--color-trinidad-black` | `bg-trinidad-black`, `text-trinidad-black` | `#1A1A1A` |
-| `--color-trinidad-cream` | `bg-trinidad-cream`, `text-trinidad-cream` | `#F5F0EB` |
-| `--color-trinidad-terracota` | `bg-trinidad-terracota`, `text-trinidad-terracota` | `#C4633A` (reserve for CTAs / signature details) |
-| `--color-trinidad-gray` | `text-trinidad-gray`, `border-trinidad-gray` | `#888780` (metadata, borders) |
-| `--color-trinidad-line` | `border-trinidad-line` | `#E4DDD3` (subtle dividers) |
+### BRANDING.md
 
-Inter is wired through `next/font/google` in `src/app/layout.tsx` and exposed as `--font-inter` → `--font-sans`. Body letter-spacing of `0.02em` is applied globally via `--tracking-trinidad`. The `@tailwindcss/typography` plugin is loaded for rich-text rendering.
-
-## Branding (from README)
-
-UI principles: abundant whitespace, text is the protagonist, no colored icons or generic illustrations. Logos are caps + Medium weight + wide tracking. Two logo variants live in `public/`: `trinidad-logo-dark.png` (on cream) and `trinidad-logo-white.png` (on black).
+* Read the file `BRANDING.md` to create website look&feel 
 
 The Founder section in `components/sections/solution.tsx` should give protagonism to CMO / CPO / CTO. Use `www.sumadots/s4i` co-founders section as visual reference.
+
+* Use the trinidad-landing-baseline.html template file to create the trinidad website frontend
+
+* The site must to be not only fully mobile-responsive but also its interactions have to be equivalent to the desktop ones.
+
+* Review and validate if the conection with contentful is fetching all content model entries.
+
+### ERROR_LOGS.md
+
+* Check immediately the `ERROR_LOGS.md` when bugs appears and do not look for hipothetically solutions and after solve it.

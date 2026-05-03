@@ -22,10 +22,10 @@ export function SiteFooter() {
           <div className="space-y-3 text-sm">
             <p className="text-xs uppercase tracking-[0.18em] text-trinidad-cream/50">Navegar</p>
             <ul className="space-y-2 text-trinidad-cream/80">
-              <li><a href="#problema" className="hover:text-trinidad-terracota transition-colors">El problema</a></li>
-              <li><a href="#solucion" className="hover:text-trinidad-terracota transition-colors">Founders</a></li>
-              <li><a href="#proceso" className="hover:text-trinidad-terracota transition-colors">Proceso 3/60</a></li>
-              <li><a href="#precios" className="hover:text-trinidad-terracota transition-colors">Inversión</a></li>
+              <li><a href="#problema" className="transition-colors hover:text-trinidad-terracota focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota">El problema</a></li>
+              <li><a href="#solucion" className="transition-colors hover:text-trinidad-terracota focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota">Founders</a></li>
+              <li><a href="#proceso" className="transition-colors hover:text-trinidad-terracota focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota">Proceso 3/60</a></li>
+              <li><a href="#precios" className="transition-colors hover:text-trinidad-terracota focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota">Inversión</a></li>
             </ul>
           </div>
           <div className="space-y-3 text-sm">
@@ -36,7 +36,7 @@ export function SiteFooter() {
             </p>
             <a
               href="#cierre"
-              className="inline-flex items-center gap-2 text-trinidad-terracota hover:text-trinidad-cream transition-colors"
+              className="inline-flex items-center gap-2 text-trinidad-terracota transition-colors hover:text-trinidad-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
             >
               Solicitar diagnóstico →
             </a>

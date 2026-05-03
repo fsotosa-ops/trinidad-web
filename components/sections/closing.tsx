@@ -8,11 +8,18 @@ export function Closing({ data }: { data: SectionClosing | null }) {
   if (!data) return null;
 
   return (
-    <section id="cierre" className="border-t border-trinidad-line/60">
+    <section
+      id="cierre"
+      aria-labelledby="cierre-heading"
+      className="border-t border-trinidad-line/60"
+    >
       <Container as="div" className="py-24 md:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <Eyebrow className="justify-center">Última palabra</Eyebrow>
-          <h2 className="mt-6 font-medium leading-[1.05] text-trinidad-black text-[clamp(2rem,4.5vw,3.75rem)]">
+          <h2
+            id="cierre-heading"
+            className="mt-6 font-display font-medium leading-[1.05] tracking-[-0.02em] text-trinidad-black text-[clamp(2.25rem,5vw,4.25rem)]"
+          >
             {data.tituloH2Es}
           </h2>
           <div className="mt-10 mx-auto max-w-2xl">

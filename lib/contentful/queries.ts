@@ -95,3 +95,35 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+// Optional schema extensions — fetched separately so missing Contentful types
+// (Pillar, frameworkImage field) don't break the homepage build before Felipe
+// adds them in the CMS.
+export const HOMEPAGE_EXTENSIONS_QUERY = /* GraphQL */ `
+  query HomepageExtensions {
+    sectionHeroCollection(limit: 1) {
+      items {
+        pillaresCollection(limit: 3) {
+          items {
+            ... on Pillar {
+              etiquetaEs
+              descripcionEs
+              orden
+            }
+          }
+        }
+      }
+    }
+    sectionSolutionCollection(limit: 1) {
+      items {
+        frameworkImage {
+          url
+          width
+          height
+          title
+          description
+        }
+      }
+    }
+  }
+`;
