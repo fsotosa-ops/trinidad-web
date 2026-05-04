@@ -79,7 +79,10 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
     }
     sectionPricingCollection(limit: 1) {
       items {
+        eyebrowPricingEs
         tituloH2Es
+        precioRegularEs
+        etiquetaOfertaEs
         ofertaIrresistibleEs {
           json
         }
@@ -88,6 +91,7 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
             ... on Product {
               nombreEs
               precio
+              disclaimerEs
               descripcionEs
               hitosPagoEs
             }

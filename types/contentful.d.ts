@@ -26,6 +26,7 @@ export interface Founder {
 export interface Product {
   nombreEs: string;
   precio: string;
+  disclaimerEs: string;
   descripcionEs: string;
   hitosPagoEs: string;
 }
@@ -83,8 +84,11 @@ export interface SectionProcess {
 }
 
 export interface SectionPricing {
+  eyebrowPricingEs: string;
   tituloH2Es: string;
   ofertaIrresistibleEs: RichText;
+  precioRegularEs: string;
+  etiquetaOfertaEs: string;
   productosCollection: { items: Product[] };
 }
 
