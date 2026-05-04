@@ -48,6 +48,7 @@ export interface SectionHero {
   tituloRichEs: RichText;
   subtituloEs: string;
   ctaPrincipalEs: string;
+  ctaUrlEs: string;
   ctaSecundarioEs: string;
   tarjetasLateralesCollection?: { 
     items: { categoria: string; descripcion: string; }[] 
@@ -86,6 +87,7 @@ export interface SectionProcess {
 export interface SectionPricing {
   eyebrowPricingEs: string;
   tituloH2Es: string;
+  ctaUrlEs: string;
   ofertaIrresistibleEs: RichText;
   precioRegularEs: string;
   etiquetaOfertaEs: string;
@@ -96,9 +98,10 @@ export interface SectionClosing {
   tituloH2Es: string;
   tituloRichEs: RichText;
   ctaTextoEs: string;
+  ctaUrlEs: string;
   cuerpoEs: RichText;
-  metadatosEs: string;       // <--- Nuevo campo
-  disclaimerPaisesEs: string; // <--- Nuevo campo
+  metadatosEs: string;      
+  disclaimerPaisesEs: string; 
 }
 
 export interface HomepageData {

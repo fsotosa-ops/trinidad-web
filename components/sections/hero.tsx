@@ -63,7 +63,7 @@ export function Hero({ data }: { data: SectionHero | null }) {
               
               {/* CTA PRINCIPAL: Alineado a la izquierda, fuente pequeña y saltos de línea */}
               <Button 
-                href="#cierre" 
+                href={data.ctaUrlEs || "mailto:contacto@3ni.dad"} 
                 className="whitespace-pre-line text-left items-start justify-start flex h-auto py-4 px-6 text-[13px] uppercase tracking-[0.15em] font-medium leading-tight min-w-[240px] border border-trinidad-terracota bg-trinidad-terracota text-white hover:bg-trinidad-terracota/90"
               >
                 {data.ctaPrincipalEs}

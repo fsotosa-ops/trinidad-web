@@ -8,6 +8,7 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
         }
         subtituloEs
         ctaPrincipalEs
+        ctaUrlEs
         ctaSecundarioEs
         tarjetasLateralesCollection {
         items {
@@ -81,6 +82,7 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
       items {
         eyebrowPricingEs
         tituloH2Es
+        ctaUrlEs
         precioRegularEs
         etiquetaOfertaEs
         ofertaIrresistibleEs {
@@ -106,6 +108,7 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
           json
         }
         ctaTextoEs
+        ctaUrlEs
         cuerpoEs {
           json
         }

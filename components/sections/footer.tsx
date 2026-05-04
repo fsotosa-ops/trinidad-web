@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { Container } from '@/components/ui/container';
 
-export function SiteFooter() {
+export function SiteFooter({ ctaLink }: { ctaLink?: string }) {
   const year = new Date().getFullYear();
+  const href = ctaLink || "#cierre";
+
   return (
     <footer className="border-t border-trinidad-line/60 bg-trinidad-black text-trinidad-cream">
       <Container as="div" className="py-14">
@@ -35,7 +37,7 @@ export function SiteFooter() {
               Sin costo. Sin compromiso.
             </p>
             <a
-              href="#cierre"
+              href={href}
               className="inline-flex items-center gap-2 text-trinidad-terracota transition-colors hover:text-trinidad-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
             >
               Solicitar diagnóstico →
@@ -43,8 +45,8 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-2 border-t border-trinidad-cream/15 pt-6 text-xs uppercase tracking-[0.18em] text-trinidad-cream/50 md:flex-row md:items-center md:justify-between">
-          <span>Trinidad © {year}</span>
-          <span>Estrategia · Producto · Tecnología</span>
+          <span>© {year} Trinidad. Todos los derechos reservados.</span>
+          <span>Santiago de Chile.</span>
         </div>
       </Container>
     </footer>

@@ -116,7 +116,7 @@ export function Pricing({ data }: { data: SectionPricing | null }) {
                 ))}
               </div>
               
-              <Button href="#cierre" className="w-auto self-start bg-trinidad-terracota text-white hover:bg-trinidad-terracota/90 border-none px-[28px] py-[14px] text-[11px] tracking-[0.12em] uppercase font-medium rounded-none">
+              <Button href={data.ctaUrlEs || "#cierre"} className="w-auto self-start bg-trinidad-terracota text-white hover:bg-trinidad-terracota/90 border-none px-[28px] py-[14px] text-[11px] tracking-[0.12em] uppercase font-medium rounded-none">
                 Solicitar diagnóstico 30′
               </Button>
             </article>

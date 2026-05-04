@@ -59,7 +59,7 @@ export function Closing({ data }: { data: SectionClosing | null }) {
           </div>
           
           <Button 
-            href="mailto:hola@trinidad.consulting" 
+            href={data.ctaUrlEs || "mailto:contacto@3ni.dad"}  
             className="inline-block w-auto rounded-none border-none bg-trinidad-terracota px-[36px] py-[16px] text-[12px] font-medium uppercase tracking-[0.12em] text-white hover:bg-trinidad-terracota/90 transition-colors"
           >
             {data.ctaTextoEs}

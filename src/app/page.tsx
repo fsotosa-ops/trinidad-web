@@ -1,3 +1,4 @@
+// src/app/page.tsx
 import { getHomepage } from '@/lib/contentful/homepage';
 import { SiteHeader } from '@/components/sections/header';
 import { SiteFooter } from '@/components/sections/footer';
@@ -12,9 +13,16 @@ import { Closing } from '@/components/sections/closing';
 export default async function HomePage() {
   const data = await getHomepage();
 
+  if (!data) {
+    return <div>Error loading content</div>;
+  }
+
+  // Extraemos el link global del Hero
+  const globalCtaUrl = data.hero?.ctaUrlEs || "mailto:hola@trinidad.consulting";
+
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaLink={globalCtaUrl} />
       <main>
         <Hero data={data.hero} />
         <Problem data={data.problem} />
@@ -24,7 +32,7 @@ export default async function HomePage() {
         <Pricing data={data.pricing} />
         <Closing data={data.closing} />
       </main>
-      <SiteFooter />
+      <SiteFooter ctaLink={globalCtaUrl} />
     </>
   );
 }

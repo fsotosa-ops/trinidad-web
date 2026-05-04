@@ -10,11 +10,13 @@ const NAV_LINKS = [
   { href: '#precios', label: 'Precios' },
 ];
 
-export function HeaderMobileMenu() {
+export function HeaderMobileMenu({ ctaLink }: { ctaLink?: string }) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
+
+  const href = ctaLink || "#cierre";
 
   useEffect(() => {
     if (!open) return;
@@ -43,9 +45,6 @@ export function HeaderMobileMenu() {
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onClick);
 
-    const focusable = panelRef.current?.querySelectorAll<HTMLElement>('a, button');
-    focusable?.[0]?.focus();
-
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', onKey);
@@ -53,7 +52,10 @@ export function HeaderMobileMenu() {
     };
   }, [open]);
 
-  const close = () => setOpen(false);
+  function close() {
+    setOpen(false);
+    buttonRef.current?.focus();
+  }
 
   return (
     <>
@@ -62,34 +64,38 @@ export function HeaderMobileMenu() {
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-10 w-10 items-center justify-center text-trinidad-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota md:hidden"
+        className="flex h-10 w-10 items-center justify-center text-trinidad-black md:hidden"
+        onClick={() => setOpen((o) => !o)}
       >
-        <span className="relative block h-3 w-6" aria-hidden>
+        <span className="sr-only">Menu</span>
+        <div className="relative h-4 w-6">
           <span
             className={clsx(
-              'absolute left-0 top-0 h-px w-full bg-current transition-transform duration-200',
-              open && 'translate-y-[5px] rotate-45',
+              'absolute left-0 top-0 block h-0.5 w-full bg-current transition-all duration-200',
+              open ? 'top-2 rotate-45' : 'rotate-0',
             )}
           />
           <span
             className={clsx(
-              'absolute left-0 bottom-0 h-px w-full bg-current transition-transform duration-200',
-              open && '-translate-y-[6px] -rotate-45',
+              'absolute left-0 top-2 block h-0.5 w-full bg-current transition-opacity duration-200',
+              open ? 'opacity-0' : 'opacity-100',
             )}
           />
-        </span>
+          <span
+            className={clsx(
+              'absolute left-0 top-4 block h-0.5 w-full bg-current transition-all duration-200',
+              open ? 'top-2 -rotate-45' : 'rotate-0',
+            )}
+          />
+        </div>
       </button>
 
       <div
-        id={panelId}
         ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menú de navegación"
+        id={panelId}
+        aria-hidden={!open}
         className={clsx(
-          'fixed inset-x-0 top-[var(--header-h,4rem)] z-30 origin-top border-b border-trinidad-line/60 bg-trinidad-cream shadow-sm transition-all duration-200 md:hidden',
+          'fixed inset-x-0 top-[4.5rem] z-30 origin-top border-b border-trinidad-line/60 bg-trinidad-cream shadow-sm transition-all duration-200 md:hidden',
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-2 opacity-0',
@@ -101,17 +107,17 @@ export function HeaderMobileMenu() {
               key={link.href}
               href={link.href}
               onClick={close}
-              className="border-b border-trinidad-line/60 py-4 text-sm font-medium uppercase tracking-[0.18em] text-trinidad-black/80 transition-colors hover:text-trinidad-terracota focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
+              className="border-b border-trinidad-line/60 py-4 text-sm font-medium uppercase tracking-[0.18em] text-trinidad-black/80 transition-colors hover:text-trinidad-terracota"
             >
               {link.label}
             </a>
           ))}
           <a
-            href="#cierre"
+            href={href}
             onClick={close}
-            className="mt-6 inline-flex items-center justify-center border border-trinidad-black px-5 py-3 text-sm font-medium uppercase tracking-[0.08em] text-trinidad-black transition-colors hover:bg-trinidad-black hover:text-trinidad-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota"
+            className="mt-6 inline-flex items-center justify-center border border-trinidad-black px-5 py-3 text-sm font-medium uppercase tracking-[0.08em] text-trinidad-black transition-colors hover:bg-trinidad-black hover:text-trinidad-cream focus:outline-none"
           >
-            Diagnóstico 30′
+            Solicitar diagnóstico
           </a>
         </nav>
       </div>

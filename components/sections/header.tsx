@@ -9,7 +9,9 @@ const NAV_LINKS = [
   { href: '#precios', label: 'Precios' },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ ctaLink }: { ctaLink?: string }) {
+  const href = ctaLink || "#cierre";
+
   return (
     <header className="sticky top-0 z-40 border-b border-trinidad-line/60 bg-trinidad-cream/85 backdrop-blur">
       <Container as="div" className="flex items-center justify-between py-5">
@@ -42,12 +44,15 @@ export function SiteHeader() {
           ))}
         </nav>
         <a
-          href="#cierre"
+          href={href}
           className="hidden border border-trinidad-black px-5 py-2.5 text-sm font-medium uppercase tracking-[0.08em] text-trinidad-black transition-colors hover:bg-trinidad-black hover:text-trinidad-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trinidad-terracota md:inline-flex"
         >
-          Diagnóstico 30′
+          Diagnóstico 30'
         </a>
-        <HeaderMobileMenu />
+        
+        {/* AQUÍ ESTÁ EL CAMBIO: Pasamos el prop al menú móvil */}
+        <HeaderMobileMenu ctaLink={href} />
+        
       </Container>
     </header>
   );
