@@ -94,8 +94,11 @@ export interface SectionPricing {
 
 export interface SectionClosing {
   tituloH2Es: string;
+  tituloRichEs: RichText;
   ctaTextoEs: string;
   cuerpoEs: RichText;
+  metadatosEs: string;       // <--- Nuevo campo
+  disclaimerPaisesEs: string; // <--- Nuevo campo
 }
 
 export interface HomepageData {

@@ -102,10 +102,15 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
     sectionClosingCollection(limit: 1) {
       items {
         tituloH2Es
+        tituloRichEs {  
+          json
+        }
         ctaTextoEs
         cuerpoEs {
           json
         }
+        metadatosEs      
+        disclaimerPaisesEs
       }
     }
   }
